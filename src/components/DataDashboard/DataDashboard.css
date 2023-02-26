@@ -1,0 +1,17 @@
+.data-group {
+    background-color: #eee;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    color: #004472;
+    max-width: 600px;
+}
+
+.data-group .data-title {
+    margin-top: 0;
+}
+
+.data-group .data-title i {
+    margin-right: 10px;
+}
+

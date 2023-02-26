@@ -1,0 +1,40 @@
+/* InputSelector */
+.input-selector ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.input-selector ul li {
+	margin-bottom: 5px;
+}
+
+.input-selector .metrics label {
+	cursor: pointer;
+}
+
+.input-selector .group {
+	background-color: rgba(255, 255, 255, 0.2);
+	padding: 15px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+}
+
+.input-selector .group .group-item:not(:last-of-type) {
+	margin-bottom: 20px;
+}
+
+.input-selector .group .label {
+	margin: 0 0 8px 0;
+	font-weight: bold;
+	color: var(--secondary);
+}
+
+.input-selector .subgroup-item:not(:last-of-type) {
+	margin-bottom: 10px;
+}
+
+.input-selector .subgroup-label {
+	display: block;
+	margin-bottom: 5px;
+}
