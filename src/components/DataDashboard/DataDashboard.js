@@ -27,7 +27,7 @@ function DataDashboard(props) {
         })}
 
         {Object.keys(metrics).map((k, idx) => {
-            if(!metrics[k]) return <></>;
+            if(!metrics[k]) return;
             const df = DataFormat[k];
 
             return (

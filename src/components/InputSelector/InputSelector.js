@@ -24,19 +24,18 @@ function InputSelector() {
 
 	const locationChange = (e) => {
 		let geocoder = new window.google.maps.Geocoder();
-		let lat = 0;
-		let long = 0;
+		let pos = [0, 0];
 
 		geocoder.geocode({
 			'address': e.target.value
 		}, function(results, status) {
 
 			if (status == window.google.maps.GeocoderStatus.OK) {
-				lat = results[0].geometry.location.lat();
-				long = results[0].geometry.location.lng();
+				pos[0] = results[0].geometry.location.lat();
+				pos[1] = results[0].geometry.location.lng();
 			} 
 
-			dispatch(setLocationAndCoords({location: e.target.value, lat, long}));
+			dispatch(setLocationAndCoords({location: e.target.value, pos}));
 		});
 	};
 

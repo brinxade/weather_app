@@ -1,0 +1,35 @@
+#app-header {
+	background: #eee;
+}
+
+#app-header .logo {
+  padding: var(--base-padding);
+  color: var(--tertiary-dark);
+}
+
+#app-header .inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#settings-btn {
+  font-size: 20px;
+  color: var(--tertiary-dark);
+  padding: 30px;
+  background: none;
+  border: none;
+  background-color: rgba(0,0,0,0);
+  cursor: pointer;
+  border-left: 1px solid #ccc;
+}
+
+#settings-btn:hover {
+  background-color: #ccc;
+  background-color: rgba(0,0,0,0.1);
+}
+
+.logo {
+  margin: 0;
+  font-size: 32px;
+}

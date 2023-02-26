@@ -15,9 +15,11 @@
 }
 
 .app-menu .app-menu-inner {
-    padding: 10px;
+    padding: 20px;
+    margin: 0 auto;
     width: var(--menu-width);
-    min-width: 400px;
+    min-width: var(--menu-width);
+    position: relative;
 }
 
 .app-menu.hide {
@@ -33,16 +35,12 @@
     align-items: center;
     justify-content: space-between;
     font-size: 20px;
-    margin-bottom: 15px;
-}
-
-.app-menu-inner {
-    position: relative;
+    margin-bottom: 20px; 
+    margin-top: 5px;   
 }
 
 .app-menu-close {
     font-size: 28px;
-    padding: 0 20px;
     border: none;
     background: none;
     color: var(--tertiary);
@@ -51,4 +49,19 @@
 
 .app-menu-close:hover {
     color: var(--tertiary-dark);
+}
+
+
+@media screen and (max-width: 800px) {
+  .app-menu {
+    --menu-width: 100%;
+
+    position: absolute;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .app-menu-inner {
+    min-width: 100vw !important;
+  }
 }

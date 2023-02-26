@@ -4,8 +4,7 @@ export const weatherSlice = createSlice({
   name: 'weather',
   initialState: {
     location: "",
-    lat: 0,
-    long: 0,
+    pos: [0, 0],
     timeRange: ['00', '24'],
     metrics: {
       temp: false,
@@ -16,8 +15,9 @@ export const weatherSlice = createSlice({
   reducers: {
     setLocationAndCoords: (state, action) => {
       state.location = action.payload.location;
-      state.lat = action.payload.lat;
-      state.long = action.payload.long;
+      state.pos = action.payload.pos;
+
+      console.log(state.pos);
     },
     setLocation: (state, action) => {
       state.location = action.payload;

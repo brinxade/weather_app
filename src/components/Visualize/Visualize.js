@@ -32,8 +32,7 @@ function LineGraph(props) {
     const [sLabels, setLabels] = useState([]);
     const [sData, setData] = useState([]);
 
-    const lat = useSelector(state => state.weather.lat);
-    const long = useSelector(state => state.weather.lat);
+    const pos = useSelector(state => state.weather.pos);
     const t = useSelector(state => state.weather.timeRange);
 
     const dispatch = useDispatch();
@@ -53,7 +52,7 @@ function LineGraph(props) {
     };
 
     useEffect(()=>{
-      fetch(DataFormat[props.dataKey].query(lat, long, t), {
+      fetch(DataFormat[props.dataKey].query(pos, t), {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -71,7 +70,7 @@ function LineGraph(props) {
         dispatch(pushNotification({type: "error", content: "API request limit reached."}));
       });
       
-    }, [lat, long, t, props.dataKey]);
+    }, [pos, t, props.dataKey]);
 
     return DataFormat[props.dataKey].visType=='line'?(
       <Line options={options} data={{
