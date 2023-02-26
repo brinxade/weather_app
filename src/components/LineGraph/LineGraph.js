@@ -10,6 +10,8 @@ import {
 } from 'chart.js';
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
+import { DataFormat } from '../../api/api';
 import convert from '../../app/convert';
 
 ChartJS.register(
@@ -24,11 +26,16 @@ ChartJS.register(
 
 function LineGraph(props) {
 
-    const [labels, setLabels] = useState([]);
-    const [d, setData] = useState([]);
+    const [sLabels, setLabels] = useState([]);
+    const [sData, setData] = useState([]);
+
+    const lat = useSelector(state => state.weather.lat);
+    const long = useSelector(state => state.weather.lat);
+    const t = useSelector(state => state.weather.timeRange);
 
     const options = {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: 'top',
@@ -39,45 +46,39 @@ function LineGraph(props) {
         },
       },
     };
-    
-    const [dataFormat, setDataFormat] = useState({
-        labels: [],
-        datasets: [
-        {
-            label: props.dataTitle,
-            data: [0,1,2],
-            borderColor: '#004472',
-            backgroundColor: '#00447233',
-        }
-      ],
-    });
 
     useEffect(()=>{
-      fetch(`https://api.meteomatics.com/2023-02-25T12:00:00.000-05:00--2023-02-26T10:00:00.000-05:00:PT10M/t_2m:C/43.6858146,-79.7599337/json?model=mix`, {
+      fetch(DataFormat[props.dataKey].query(lat, long, t), {
         method: 'GET',
+        mode: 'cors',
         headers: {
-            "Authorization": "Basic ZnJlZWxhbmNlX2JhandhOmQ1NjVMa3d6VFQ="
+            "Authorization": "Basic ZnJlZWxhbmNlX2JhandhOmQ1NjVMa3d6VFQ=",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
         }
-      }).then((res)=>{ return res.json(); })
+      }).then((res) => { return res.json(); })
       .then((json) => {
         let data = convert.apiToApp(json);
+        console.log(data);
 
-        dataFormat.labels = data.labels;
-        dataFormat.datasets[0].data = data.values;
-
-        let newDF = {...dataFormat};
-        newDF.labels = data.labels;
-        newDF.datasets[0].data = data.values;
-
-        console.log(newDF);
-
-        setDataFormat(newDF);
+        setData(data.values);
+        setLabels(data.labels);
       });
       
-    }, []);
+    }, [lat, long, t]);
 
     return (
-        <Line options={options} data={dataFormat} />
+        <Line options={options} data={{
+          labels: sLabels,
+          datasets: [
+          {
+              label: `${props.dataTitle} (${DataFormat[props.dataKey].unit})`,
+              data: sData,
+              borderColor: '#004472',
+              backgroundColor: '#00447233',
+          }
+        ],
+      }} />
     );
 };
 

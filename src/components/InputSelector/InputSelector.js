@@ -2,17 +2,19 @@ import "./InputSelector.css";
 import Button from "../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
-import { toggleMetric, setLocation } from "../../reducers/weather/weatherReducer";
+import { toggleMetric, setLocation, setLocationAndCoords, updateTime } from "../../reducers/weather/weatherReducer";
+import { changeAppStatusText } from "../../reducers/app/appReducer";
+import { store } from "../../app/store";
 
 function InputSelector() {
 
 	const dispatch = useDispatch();
+	const timeRange = useSelector(state => state.weather.timeRange);
 	
 	// Places API
 	const autoCompleteRef = useRef();
 	const options = {
-		componentRestrictions: { country: "ng" },
-		fields: ["address_components", "geometry", "icon", "name"],
+		fields: ["address_components", "geometry", "icon"],
 		types: ["establishment"]
 	};
 	
@@ -21,24 +23,39 @@ function InputSelector() {
 	const mPpt = useSelector((state) => state.weather.ppt);
 	const mWs = useSelector((state) => state.weather.ws);
 	const location = useSelector((state) => state.weather.location);
-	const [timeRange, setTimeRange] = useState([]);
 
 	const locationChange = (e) => {
 		let geocoder = new window.google.maps.Geocoder();
+		let lat = 0;
+		let long = 0;
 
 		geocoder.geocode({
 			'address': e.target.value
 		}, function(results, status) {
 
 			if (status == window.google.maps.GeocoderStatus.OK) {
-				let latitude = results[0].geometry.location.lat();
-				let longitude = results[0].geometry.location.lng();
+				lat = results[0].geometry.location.lat();
+				long = results[0].geometry.location.lng();
+			} 
 
-				console.log(latitude, longitude);
-				dispatch(setLocation(e.target.value, latitude, longitude));
-			}
+			dispatch(setLocationAndCoords({location: e.target.value, lat, long}));
 		});
 	};
+
+	const timeRangeChange = (e, type) => {
+
+		let t = [...store.getState().weather.timeRange];
+
+		if(type == "start")
+			t[0] = e.target.value;
+		else if(type == "end")
+			t[1] = e.target.value;
+
+
+		dispatch(updateTime(t));
+	};
+
+	let appStatus = useSelector((state) => state.app.appStatus);
 
 	useEffect(()=>{
 		autoCompleteRef.current = new window.google.maps.places.Autocomplete(
@@ -54,19 +71,21 @@ function InputSelector() {
                     <div className="group-item">
 						<p className="label">Location</p>
 						<input type="text" ref={locationRef} value={location} 
-						onInput={(e)=>{locationChange(e)}} 
+						onChange={(e)=>{dispatch(setLocation(e.target.value))}} 
 						onBlur={(e)=>{locationChange(e)}}/>
 					</div>
 
 					<div className="group-item">
 						<p className="label">Time Range</p>
-						<div className="subgroup-item">
-							<span className="subgroup-label">Start</span>
-							<input type="time"/>
-						</div>
-						<div className="subgroup-item">
-							<span className="subgroup-label">End</span>
-							<input type="time"/>
+						<div className="d-flex-50">
+							<div className="subgroup-item">
+								<span className="subgroup-label">Start Hour</span>
+								<input type="number" value={timeRange[0]} min="0" max="24" onChange={(e) => {timeRangeChange(e, "start")}}/>
+							</div>
+							<div className="subgroup-item">
+								<span className="subgroup-label">End Hour</span>
+								<input type="number" value={timeRange[1]} min="0" max="24" onChange={(e) => {timeRangeChange(e, "end")}}/>
+							</div>
 						</div>
 					</div>
                 </div>

@@ -4,11 +4,16 @@
     margin-bottom: 20px;
     border-radius: 10px;
     color: #004472;
-    max-width: 600px;
+}
+
+.data-group canvas {
+    max-width: 100%;
+    height: 400px;
 }
 
 .data-group .data-title {
     margin-top: 0;
+    margin-bottom: -20px;
 }
 
 .data-group .data-title i {
