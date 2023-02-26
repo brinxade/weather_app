@@ -67,7 +67,7 @@ function LineGraph(props) {
         setData(data.values);
         setLabels(data.labels);
       }).catch((err) => {
-        dispatch(pushNotification({type: "error", content: "API request limit reached."}));
+        dispatch(pushNotification({id: "001", type: "error", content: "API request limit reached."}));
       });
       
     }, [pos, t, props.dataKey]);

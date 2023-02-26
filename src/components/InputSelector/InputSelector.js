@@ -83,7 +83,7 @@ function InputSelector() {
 
       }, (err) => { console.log("Failed to fetch current location."); cb(); }, options);
 		} else {
-			pushNotification({type: "warn", content: "Failed to get current location. Please search a location from the menu."});
+			pushNotification({id: "002", type: "warn", content: "Failed to get current location. Please search a location from the menu."});
       cb();
 		}
   };

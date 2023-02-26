@@ -16,6 +16,9 @@ export const appSlice = createSlice({
       state.appStatus = action.payload;
     },
     pushNotification: (state, action) => {
+      let notif_ids = state.notifications.map(n => n.id);
+      if(notif_ids.some(n_id => n_id == action.payload.id)) return;
+      
       if(state.notifications.length >= MAX_NOTIFS)
         state.notifications.splice(0, 1);
 
