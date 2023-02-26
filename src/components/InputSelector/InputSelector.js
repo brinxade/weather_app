@@ -1,9 +1,7 @@
 import "./InputSelector.css";
-import Button from "../Button/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { toggleMetric, setLocation, setLocationAndCoords, updateTime } from "../../reducers/weather/weatherReducer";
-import { changeAppStatusText } from "../../reducers/app/appReducer";
 import { store } from "../../app/store";
 
 function InputSelector() {
@@ -19,10 +17,10 @@ function InputSelector() {
 	};
 	
 	const locationRef = useRef();
-	const mTemp = useSelector((state) => state.weather.temp);
-	const mPpt = useSelector((state) => state.weather.ppt);
-	const mWs = useSelector((state) => state.weather.ws);
-	const location = useSelector((state) => state.weather.location);
+	const mTemp = useSelector(state => state.weather.temp);
+	const mPpt = useSelector(state => state.weather.ppt);
+	const mWs = useSelector(state => state.weather.ws);
+	const location = useSelector(state => state.weather.location);
 
 	const locationChange = (e) => {
 		let geocoder = new window.google.maps.Geocoder();
@@ -54,8 +52,6 @@ function InputSelector() {
 
 		dispatch(updateTime(t));
 	};
-
-	let appStatus = useSelector((state) => state.app.appStatus);
 
 	useEffect(()=>{
 		autoCompleteRef.current = new window.google.maps.places.Autocomplete(

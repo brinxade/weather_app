@@ -3,13 +3,14 @@ import {
     CategoryScale,
     LinearScale,
     PointElement,
+    BarElement,
     LineElement,
     Title,
     Tooltip,
     Legend,
 } from 'chart.js';
 import { useEffect, useState } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import { DataFormat } from '../../api/api';
 import convert from '../../app/convert';
@@ -19,6 +20,7 @@ ChartJS.register(
     LinearScale,
     PointElement,
     LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend
@@ -52,11 +54,11 @@ function LineGraph(props) {
         method: 'GET',
         mode: 'cors',
         headers: {
-            "Authorization": "Basic ZnJlZWxhbmNlX2JhandhOmQ1NjVMa3d6VFQ=",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+            "Authorization": "Basic ZnJlZWxhbmNlX2JhandhOmQ1NjVMa3d6VFQ="
         }
-      }).then((res) => { return res.json(); })
+      }).then((res) => { 
+        return res.json(); 
+      })
       .then((json) => {
         let data = convert.apiToApp(json);
         console.log(data);
@@ -65,18 +67,30 @@ function LineGraph(props) {
         setLabels(data.labels);
       });
       
-    }, [lat, long, t]);
+    }, [lat, long, t, props.dataKey]);
 
-    return (
-        <Line options={options} data={{
-          labels: sLabels,
-          datasets: [
-          {
-              label: `${props.dataTitle} (${DataFormat[props.dataKey].unit})`,
-              data: sData,
-              borderColor: '#004472',
-              backgroundColor: '#00447233',
-          }
+    return DataFormat[props.dataKey].visType=='line'?(
+      <Line options={options} data={{
+        labels: sLabels,
+        datasets: [
+        {
+            label: `${props.dataTitle} (${DataFormat[props.dataKey].unit})`,
+            data: sData,
+            borderColor: '#004472',
+            backgroundColor: '#00447233',
+        }
+        ],
+      }} />
+    ):(
+      <Bar options={options} data={{
+        labels: sLabels,
+        datasets: [
+        {
+            label: `${props.dataTitle} (${DataFormat[props.dataKey].unit})`,
+            data: sData,
+            borderColor: '#004472',
+            backgroundColor: '#004472',
+        }
         ],
       }} />
     );

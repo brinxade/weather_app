@@ -1,20 +1,21 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import api, { DataFormat } from "../../api/api";
-import LineGraph from "../LineGraph/LineGraph";
+import { DataFormat } from "../../api/api";
+import Visualize from "../Visualize/Visualize";
 import "./DataDashboard.css";
 
 function DataDashboard(props) {
     
-    const dispatch = useDispatch();
     const metrics = useSelector((state) => state.weather.metrics);
     const lat = useSelector((state) => state.weather.lat);
     const long = useSelector((state) => state.weather.long);
 
     return (
         <>
+        {(lat==0 || long==0)?<p className="warn"><i className="fa-solid fa-circle-exclamation"></i>Please select a valid location from the menu.</p>:<></>}
+        {(Object.values(metrics).every((x) => x==false)?<p className="info"><i className="fa-solid fa-circle-exclamation"></i>Please select atleast one metric from the menu.</p>:<></>)}
+
         {Object.keys(metrics).map((k) => {
-            if(!metrics[k]) return;
+            if(!metrics[k]) return <></>;
             const df = DataFormat[k];
 
             return (
@@ -22,15 +23,11 @@ function DataDashboard(props) {
                 <h3 className="data-title"><i className={`fa-solid ${df.icon}`}></i>{df.name}</h3>
 
                 <div className="chart-wrapper">
-                    <LineGraph dataKey={k} dataTitle={df.name}/>
+                    <Visualize dataKey={k} dataTitle={df.name}/>
                 </div>
               </div>
             );
         })}
-
-        {
-            (Object.values(metrics).every((x) => x==false)?<p className="info"><i className="fa-solid fa-info"></i>Please select atleast one metric from the menu.</p>:<></>)
-        }
         </>          
     );
 }

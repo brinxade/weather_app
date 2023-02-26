@@ -59,9 +59,6 @@ input[type="number"] {
 }
 
 .warn > i {
-  background-color: rgb(255, 201, 24);
-  padding: 10px 15px;
-  border-radius: 100% 100%;
   margin-right: 10px; 
 }
 
@@ -74,10 +71,7 @@ input[type="number"] {
 }
 
 .info > i {
-  color: white;
-  background-color: rgb(24, 182, 255);
-  padding: 10px 15px;
-  border-radius: 100% 100%;
+  color: black;
   margin-right: 10px; 
 }
 
