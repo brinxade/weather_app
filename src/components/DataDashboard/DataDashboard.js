@@ -8,14 +8,13 @@ function DataDashboard(props) {
     
     const dispatch = useDispatch();
     const metrics = useSelector((state) => state.weather.metrics);
-    const lat = useSelector((state) => state.weather.lat);
-    const long = useSelector((state) => state.weather.long);
+    const pos = useSelector((state) => state.weather.pos);
     const notifs = useSelector(state => state.app.notifications);
 
     return (
         <>
-        {(lat==0 || long==0)?<p className="warn notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select a valid location from the menu.</span></p>:<></>}
-        {(Object.values(metrics).every((x) => x==false)?<p className="info notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select atleast one metric from the menu.</span></p>:<></>)}
+        {(pos[0] == 0 || pos[1] == 0)?<p className="warn notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select a valid location from the menu.</span></p>:<></>}
+        {(Object.values(metrics).every((x) => x==false )?<p className="info notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select atleast one metric from the menu.</span></p>:<></>)}
 
         {notifs.map((n, idx) => {
             return (
