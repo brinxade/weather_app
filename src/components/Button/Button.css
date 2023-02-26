@@ -1,15 +1,17 @@
 .button {
-    background: transparent;
-    color: white;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    color: #0d0d0d;
     padding: 8px 20px;
     border-radius: 5px;
-    border: 2px solid white;
+    border: none;
     font-family: inherit;
     font-weight: bold;
     transition: background-color 0.2s, color 0.2s;
+    margin-top: 10px;
 }
 
 .button:hover {
-    background: #fff;
-    color: #0d0d0d;
+    background: var(--secondary); 
 }

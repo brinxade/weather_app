@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { toggleMetric, setLocation, setLocationAndCoords, updateTime } from "../../reducers/weather/weatherReducer";
 import { store } from "../../app/store";
+import { pushNotification } from "../../reducers/app/appReducer";
+import Button from "../Button/Button";
 
 function InputSelector() {
 
@@ -59,43 +61,74 @@ function InputSelector() {
 		);
 	}, []);
 
-    return (
-        <div className="input-selector">
-            <div className="menu-items">
-                <div className="group">
-                    <div className="group-item">
-						<p className="label">Location</p>
-						<input type="text" ref={locationRef} value={location} 
-						onChange={(e)=>{dispatch(setLocation(e.target.value))}} 
-						onBlur={(e)=>{locationChange(e)}}/>
-					</div>
+  const setCurrentLocation = (e, cb) => {
+    if (navigator.geolocation) {
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      };
 
-					<div className="group-item">
-						<p className="label">Time Range</p>
-						<div className="d-flex-50">
-							<div className="subgroup-item">
-								<span className="subgroup-label">Start Hour</span>
-								<input type="number" value={timeRange[0]} min="0" max="24" onChange={(e) => {timeRangeChange(e, "start")}}/>
-							</div>
-							<div className="subgroup-item">
-								<span className="subgroup-label">End Hour</span>
-								<input type="number" value={timeRange[1]} min="0" max="24" onChange={(e) => {timeRangeChange(e, "end")}}/>
-							</div>
-						</div>
-					</div>
-                </div>
+			navigator.geolocation.getCurrentPosition((p) => {
+        console.log("Using current location.");
+        let pos = [p.coords.latitude, p.coords.latitude];
+        console.log(pos);
 
-                <div className="group metrics">
-					<p className="label">Metrics</p>
-					<ul>
-						<li><label><input type="checkbox" checked={mTemp} onChange={(e)=>{dispatch(toggleMetric("temp"))}}/> Temperature</label></li>
-						<li><label><input type="checkbox" checked={mPpt} onChange={(e)=>{dispatch(toggleMetric("ppt"))}}/> Precipitation</label></li>
-						<li><label><input type="checkbox" checked={mWs} onChange={(e)=>{dispatch(toggleMetric("ws"))}}/> Windspeed</label></li>
-					</ul>
-                </div>
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos[0]},${pos[1]}&key=AIzaSyDqDdw4CN92p9gwujRO56GHA61OrQ-d6p8`)
+        .then(res => res.json())
+        .then(json => {
+          dispatch(setLocationAndCoords({location: json.plus_code.compound_code, pos}));
+          cb();
+        }).catch((err) => { cb(); });
+
+      }, (err) => { console.log("Failed to fetch current location."); cb(); }, options);
+		} else {
+			pushNotification({type: "warn", content: "Failed to get current location. Please search a location from the menu."});
+      cb();
+		}
+  };
+
+  return (
+    <div className="input-selector">
+      <div className="menu-items">
+        <div className="group">
+          <div className="group-item">
+			      <p className="label">Location</p>
+			      <input type="text" ref={locationRef} value={location} 
+            onChange={(e)=>{dispatch(setLocation(e.target.value))}} 
+            onBlur={(e)=>{locationChange(e)}}/>
+            <Button icon="fa-location" preloader={true} click={setCurrentLocation}>
+              Use Current Location
+            </Button>
+			    </div>
+
+          <div className="group-item">
+            <p className="label">Time Range</p>
+            <div className="d-flex-50">
+              <div className="subgroup-item">
+                <span className="subgroup-label">Start Hour</span>
+                <input type="number" value={timeRange[0]} min="0" max="24" onChange={(e) => {timeRangeChange(e, "start")}}/>
+              </div>
+
+              <div className="subgroup-item">
+                <span className="subgroup-label">End Hour</span>
+                <input type="number" value={timeRange[1]} min="0" max="24" onChange={(e) => {timeRangeChange(e, "end")}}/>
+              </div>
             </div>
+          </div>
         </div>
-    );
+
+        <div className="group metrics">
+          <p className="label">Metrics</p>
+          <ul>
+            <li><label><input type="checkbox" checked={mTemp} onChange={(e)=>{dispatch(toggleMetric("temp"))}}/> Temperature</label></li>
+            <li><label><input type="checkbox" checked={mPpt} onChange={(e)=>{dispatch(toggleMetric("ppt"))}}/> Precipitation</label></li>
+            <li><label><input type="checkbox" checked={mWs} onChange={(e)=>{dispatch(toggleMetric("ws"))}}/> Windspeed</label></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default InputSelector;
