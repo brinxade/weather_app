@@ -61,7 +61,6 @@ function LineGraph(props) {
       })
       .then((json) => {
         let data = convert.apiToApp(json);
-        console.log(data);
 
         setData(data.values);
         setLabels(data.labels);

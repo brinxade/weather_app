@@ -25,9 +25,6 @@ export const weatherSlice = createSlice({
     toggleMetric: (state, action) => {
       state.metrics[action.payload]=!(state.metrics[action.payload]);
     },
-    updateData: (state, action) => {
-      console.log("Data update request: ", action);
-    },
     updateTime: (state, action) => {
       state.timeRange = [String(action.payload[0]).padStart(2, '0'), String(action.payload[1]).padStart(2, '0')];
     }
