@@ -2,7 +2,7 @@
 #app-footer {
 	background-color: var(--primary);
 	color: white;
-	padding: 10px var(--base-padding);
+	padding: 20px var(--base-padding);
 }
 
 #app-footer p {

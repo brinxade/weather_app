@@ -13,8 +13,11 @@ function DataDashboard(props) {
 
     return (
         <>
-        {(pos[0] == 0 || pos[1] == 0)?<p className="warn notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select a valid location from the menu.</span></p>:<></>}
-        {(Object.values(metrics).every((x) => x==false )?<p className="info notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select atleast one metric from the menu.</span></p>:<></>)}
+        {(pos[0] == 0 || pos[1] == 0) && 
+        <p className="warn notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select a valid location from the menu.</span></p>}
+
+        {(Object.values(metrics).every((x) => x==false ) && 
+        <p className="info notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select atleast one metric from the menu.</span></p>)}
 
         {notifs.map((n, idx) => {
             return (

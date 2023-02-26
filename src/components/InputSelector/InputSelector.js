@@ -119,7 +119,7 @@ function InputSelector() {
         </div>
 
         <div className="group metrics">
-          <p className="label">Metrics</p>
+          <p className="label">Select weather metrics</p>
           <ul>
             <li><label><input type="checkbox" checked={mTemp} onChange={(e)=>{dispatch(toggleMetric("temp"))}}/> Temperature</label></li>
             <li><label><input type="checkbox" checked={mPpt} onChange={(e)=>{dispatch(toggleMetric("ppt"))}}/> Precipitation</label></li>
