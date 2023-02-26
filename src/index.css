@@ -23,7 +23,7 @@ body {
 }
 
 * {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 /* Global */
@@ -50,6 +50,31 @@ input[type="number"] {
   font-size: 16px;
 }
 
+.notif {
+  display: flex;
+  justify-content: space-between;
+}
+
+.notif button {
+  border: none;
+  background: none;
+}
+
+.notif.error button i {
+  border-radius: 100% 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100% 100%;
+  background-color: rgb(255, 143, 143);
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+.notif.error button i:hover {
+  background-color: rgb(255, 100, 100);
+}
+
 .warn {
   background-color: rgb(253, 255, 232);
   padding: 10px;
@@ -58,7 +83,7 @@ input[type="number"] {
   margin-top: 0;
 }
 
-.warn > i {
+.warn i {
   margin-right: 10px; 
 }
 
@@ -70,22 +95,67 @@ input[type="number"] {
   margin-top: 0;
 }
 
-.info > i {
+.info i {
   color: black;
   margin-right: 10px; 
 }
 
+.error {
+  background-color: rgb(255, 211, 211);
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgb(255, 17, 17);
+  margin-top: 0;
+}
+
+.error i {
+  color: black;
+  margin-right: 10px; 
+}
+
+
 main {
   padding: 20px;
   margin-bottom: auto;
+  max-height: calc(100vh - 85px);
+  overflow: auto;
 }
 
 #update-settings {
   margin-bottom: 30px;
 }
 
+/* Scroll bar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  padding: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--tertiary);
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--tertiary-dark);
+  cursor: pointer;
+}
+
+#root {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 #app {
   position: relative;
+  width: 100%;
+  max-height: 100vh;
 }
 
 #settings-btn {
@@ -113,7 +183,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 
 #app-header {

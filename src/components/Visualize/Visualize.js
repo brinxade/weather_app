@@ -11,9 +11,10 @@ import {
 } from 'chart.js';
 import { useEffect, useState } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { DataFormat } from '../../api/api';
 import convert from '../../app/convert';
+import { pushNotification } from '../../reducers/app/appReducer';
 
 ChartJS.register(
     CategoryScale,
@@ -34,6 +35,8 @@ function LineGraph(props) {
     const lat = useSelector(state => state.weather.lat);
     const long = useSelector(state => state.weather.lat);
     const t = useSelector(state => state.weather.timeRange);
+
+    const dispatch = useDispatch();
 
     const options = {
       responsive: true,
@@ -64,6 +67,8 @@ function LineGraph(props) {
 
         setData(data.values);
         setLabels(data.labels);
+      }).catch((err) => {
+        dispatch(pushNotification({type: "error", content: "API request limit reached."}));
       });
       
     }, [lat, long, t, props.dataKey]);
