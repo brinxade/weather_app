@@ -10,7 +10,7 @@
     z-index: 999;
     background-color: #0D1821;
     color: white;
-    transition: right 0.5s cubic-bezier(0.33, 1, 0.68, 1), max-width 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    transition: right 0.3s cubic-bezier(0.33, 1, 0.68, 1), max-width 0.3s cubic-bezier(0.33, 1, 0.68, 1);
     overflow: hidden;
 }
 

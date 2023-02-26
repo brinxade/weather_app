@@ -14,8 +14,8 @@ function DataDashboard(props) {
 
     return (
         <>
-        {(lat==0 || long==0)?<p className="warn"><i className="fa-solid fa-circle-exclamation"></i>Please select a valid location from the menu.</p>:<></>}
-        {(Object.values(metrics).every((x) => x==false)?<p className="info"><i className="fa-solid fa-circle-exclamation"></i>Please select atleast one metric from the menu.</p>:<></>)}
+        {(lat==0 || long==0)?<p className="warn notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select a valid location from the menu.</span></p>:<></>}
+        {(Object.values(metrics).every((x) => x==false)?<p className="info notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select atleast one metric from the menu.</span></p>:<></>)}
 
         {notifs.map((n, idx) => {
             return (

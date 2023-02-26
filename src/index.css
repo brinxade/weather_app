@@ -55,6 +55,14 @@ input[type="number"] {
   justify-content: space-between;
 }
 
+.notif {
+  margin: 0 0 15px 0;
+}
+
+.notif:last-child {
+  margin-bottom: 15px;
+}
+
 .notif button {
   border: none;
   background: none;
@@ -184,6 +192,7 @@ main {
   flex-direction: column;
   justify-content: space-between;
   max-height: 100vh;
+  height: 100vh;
 }
 
 #app-header {
@@ -201,8 +210,10 @@ main {
 }
 
 #app-footer {
-  background-color: #eee;
+  background-color: #CCC;
+  color: black;
   padding: var(--base-padding);
+  box-shadow: 0 0 15px -2px rgba(0,0,0,0.3);
 }
 
 #app-footer p {

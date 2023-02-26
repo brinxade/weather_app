@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const MAX_NOTIFS = 3;
+
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
@@ -14,6 +16,9 @@ export const appSlice = createSlice({
       state.appStatus = action.payload;
     },
     pushNotification: (state, action) => {
+      if(state.notifications.length >= MAX_NOTIFS)
+        state.notifications.splice(0, 1);
+
       state.notifications.push(action.payload);
     },
     removeNotification: (state, action) => {
