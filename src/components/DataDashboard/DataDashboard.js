@@ -18,11 +18,18 @@ function DataDashboard(props) {
         <div className="intro">
             <h3>Greetings Visitor!</h3>
             <p>
-                You can use this app to get visualized weather information for any address, or your current location. Currently temperature, precipitation and wind speed are supported. 
+                You can use this app to get visualized weather information for any address, or your current location. 
+                Currently temperature, precipitation and wind speed are supported. 
                 <br/>
-                This app uses free version of the Meteomatics API, which has limited number of API requests per day. If that limit is reached, you will see a message. Mock data will be displayed in this case instead of real data.
+                This app uses free version of the Meteomatics API, which has limited number of API requests per day. 
+                If that limit is reached, you will see a message. Mock data will be displayed in this case instead of real data.
             </p>
-            <p className="info notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select atleast one weather metric from the menu to <strong className="link" onClick={() => { dispatch(setMenuOpen(true)); }}>get started!</strong></span></p>
+            <p className="info notif">
+                <span><i className="fa-solid fa-circle-exclamation"></i>
+                Please select atleast one weather metric from the menu to 
+                <strong className="link" onClick={() => { dispatch(setMenuOpen(true)); }}>get started!</strong>
+                </span>
+            </p>
         </div>)}
 
         {rtlEnabled && <p className="info notif"><span><i className="fa-solid fa-circle-exclamation"></i>Realtime updates are enabled.</span></p>}

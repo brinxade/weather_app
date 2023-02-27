@@ -6,6 +6,10 @@
     color: #004472;
 }
 
+.data-group:last-of-type {
+    margin-bottom: 0;
+}
+
 .data-group canvas {
     max-width: 100%;
     height: clamp(200px, 12vw, 400px);
