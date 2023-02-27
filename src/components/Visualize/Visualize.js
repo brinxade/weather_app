@@ -56,7 +56,10 @@ function LineGraph(props) {
     const fetchData = () => {
       fetch(DataFormat[props.dataKey].query(pos, t), {
         method: 'GET',
-        mode: 'cors'
+        mode: 'cors',
+        headers: {
+          "Authorization": process.env.REACT_APP_API_AUTH
+        }
       }).then((res) => { 
         return res.json(); 
       })
@@ -68,6 +71,7 @@ function LineGraph(props) {
         let mockData = Utility.getMockData(parseInt(t[1])+1, parseInt(t[0]));
         setData(mockData.data);
         setLabels(mockData.labels);
+        console.log(err);
         dispatch(pushNotification({id: "001", type: "error", content: "API request limit reached. Displaying mock data instead. Real data will be fetched when available."}));
       });
     };

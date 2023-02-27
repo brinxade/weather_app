@@ -2,7 +2,8 @@ import { Utility } from '../app/util';
  
 // In seconds
 export const REALTIME_INTERVAL = 5;
-const API_PATH = `https://${process.env.REACT_APP_API_USER}:${process.env.REACT_APP_API_PASS}@api.meteomatics.com`;
+//const API_PATH = `https://${process.env.REACT_APP_API_USER}:${process.env.REACT_APP_API_PASS}@api.meteomatics.com`;
+const API_PATH = `https://api.meteomatics.com`;
 
 export const DataFormat = {
     temp: {
