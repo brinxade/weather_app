@@ -1,6 +1,6 @@
 .data-group {
     background-color: #eee;
-    padding: 20px;
+    padding: var(--base-padding);
     margin-bottom: 20px;
     border-radius: 10px;
     color: #004472;
@@ -12,7 +12,7 @@
 
 .data-group canvas {
     max-width: 100%;
-    height: clamp(200px, 12vw, 400px);
+    height: clamp(270px, 12vw, 400px);
 }
 
 .data-group .data-title {
