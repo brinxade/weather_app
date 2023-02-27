@@ -12,7 +12,7 @@
 
 .data-group canvas {
     max-width: 100%;
-    height: clamp(270px, 12vw, 400px);
+    height: clamp(270px, 14vw, 400px);
 }
 
 .data-group .data-title {
