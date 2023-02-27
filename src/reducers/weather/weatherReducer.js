@@ -27,6 +27,7 @@ export const weatherSlice = createSlice({
       state.metrics[action.payload]=!(state.metrics[action.payload]);
     },
     updateTime: (state, action) => {
+      if(parseInt(action.payload[0]) >= parseInt(action.payload[1])) return;
       state.timeRange = [String(action.payload[0]).padStart(2, '0'), String(action.payload[1]).padStart(2, '0')];
     },
     setRealtime: (state, action) => {

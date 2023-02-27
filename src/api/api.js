@@ -1,7 +1,8 @@
-import Convertor from '../app/convert';
-import { store } from '../app/store';
 import { Utility } from '../app/util';
  
+// In seconds
+export const REALTIME_INTERVAL = 5;
+
 export const DataFormat = {
     temp: {
         name: "Temperature",

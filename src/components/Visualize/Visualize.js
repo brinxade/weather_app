@@ -12,8 +12,9 @@ import {
 import { useEffect, useState } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import { useDispatch, useSelector } from 'react-redux';
-import { DataFormat } from '../../api/api';
+import { DataFormat, REALTIME_INTERVAL } from '../../api/api';
 import convert from '../../app/convert';
+import { Utility } from '../../app/util';
 import { pushNotification } from '../../reducers/app/appReducer';
 
 ChartJS.register(
@@ -31,8 +32,6 @@ function LineGraph(props) {
 
     const [sLabels, setLabels] = useState([]);
     const [sData, setData] = useState([]);
-
-    const REALTIME_INTERVAL = 1; // In minutes
     const rtlEnabled = useSelector(state => state.weather.realtime);
     const pos = useSelector(state => state.weather.pos);
     const t = useSelector(state => state.weather.timeRange);
@@ -69,29 +68,37 @@ function LineGraph(props) {
         setData(data.values);
         setLabels(data.labels);
       }).catch((err) => {
-        dispatch(pushNotification({id: "001", type: "error", content: "API request limit reached."}));
+        let mockData = Utility.getMockData(parseInt(t[1])+1, parseInt(t[0]));
+        setData(mockData.data);
+        setLabels(mockData.labels);
+        dispatch(pushNotification({id: "001", type: "error", content: "API request limit reached. Displaying mock data instead. Real data will be fetched when available."}));
       });
     };
 
     // Fetch data on component mount
     useEffect(()=>{
       fetchData();
-    }, [pos, t, props.dataKey]);
+    }, []);
+
+    useEffect(()=>{
+      fetchData();
+    }, [pos, t]);
 
     // Realtime data fetch logic
     useEffect(()=>{
 
+      let id = 0;
       if(rtlEnabled) {
-        let id = setInterval(fetchData, REALTIME_INTERVAL * 2000);
+        id = setInterval(fetchData, REALTIME_INTERVAL * 1000);
         setRtlId(id);
       } else {
-        clearInterval(rtlId);
+        clearInterval(rtlId); setRtlId(0);
       }
 
-      return ()=>{ clearInterval(rtlId); };
+      return ()=>{ clearInterval(id); setRtlId(0); };
     }, [rtlEnabled]);
 
-    return DataFormat[props.dataKey].visType=='line'?(
+    return DataFormat[props.dataKey].visType==='line'?(
       <Line options={options} data={{
         labels: sLabels,
         datasets: [

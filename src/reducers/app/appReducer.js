@@ -12,6 +12,9 @@ export const appSlice = createSlice({
     menuToggle: (state) => {
         state.menuCollapse = !(state.menuCollapse)
     },
+    setMenuOpen: (state, action) => {
+      state.menuCollapse = action.payload;
+    },
     changeAppStatusText: (state, action) => {
       state.appStatus = action.payload;
     },
@@ -30,5 +33,5 @@ export const appSlice = createSlice({
   },
 })
 
-export const { menuToggle, changeAppStatusText, pushNotification, removeNotification } = appSlice.actions;
+export const { setMenuOpen, menuToggle, changeAppStatusText, pushNotification, removeNotification } = appSlice.actions;
 export default appSlice.reducer;

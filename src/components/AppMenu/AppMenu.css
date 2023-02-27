@@ -12,6 +12,7 @@
     color: white;
     transition: right 0.3s cubic-bezier(0.33, 1, 0.68, 1), max-width 0.3s cubic-bezier(0.33, 1, 0.68, 1);
     overflow: hidden;
+    box-shadow: -10px 0px 24px -12px rgba(0, 0, 0, 0.5);
 }
 
 .app-menu .app-menu-inner {
@@ -24,6 +25,7 @@
 
 .app-menu.hide {
     max-width: 0;
+    box-shadow: none;
 }
 
 .app-menu.show {

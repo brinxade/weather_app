@@ -5,6 +5,7 @@ import { toggleMetric, setLocation, setLocationAndCoords, updateTime, setRtlUpda
 import { store } from "../../app/store";
 import { pushNotification } from "../../reducers/app/appReducer";
 import Button from "../Button/Button";
+import { REALTIME_INTERVAL } from "../../api/api";
 
 function InputSelector() {
 
@@ -134,7 +135,7 @@ function InputSelector() {
         <div className="group metrics">
           <p className="label">More settings</p>
           <ul>
-            <li><label><input type="checkbox" checked={rtlEnabled} onChange={(e)=>{dispatch(setRealtime(e.target.checked))}}/> Enable realtime updates</label></li>
+            <li><label><input type="checkbox" checked={rtlEnabled} onChange={(e)=>{dispatch(setRealtime(e.target.checked))}}/> Enable realtime updates (every {REALTIME_INTERVAL}s)</label></li>
           </ul>
         </div>
       </div>
