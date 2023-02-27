@@ -5,7 +5,7 @@ const MAX_NOTIFS = 3;
 export const appSlice = createSlice({
   name: 'app',
   initialState: {
-    menuCollapse: false,
+    menuCollapse: true,
     notifications: []
   },
   reducers: {
@@ -13,7 +13,7 @@ export const appSlice = createSlice({
         state.menuCollapse = !(state.menuCollapse)
     },
     setMenuOpen: (state, action) => {
-      state.menuCollapse = action.payload;
+      state.menuCollapse = !action.payload;
     },
     changeAppStatusText: (state, action) => {
       state.appStatus = action.payload;

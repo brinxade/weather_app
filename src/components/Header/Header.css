@@ -16,7 +16,7 @@
 #settings-btn {
   font-size: 20px;
   color: white;
-  padding: 30px;
+  padding: clamp(20px, 3vw, 34px);
   background: none;
   border: none;
   background-color: rgba(0,0,0,0.1);
