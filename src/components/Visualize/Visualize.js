@@ -56,10 +56,7 @@ function LineGraph(props) {
     const fetchData = () => {
       fetch(DataFormat[props.dataKey].query(pos, t), {
         method: 'GET',
-        mode: 'cors',
-        headers: {
-            "Authorization": process.env.REACT_APP_API_AUTH
-        }
+        mode: 'cors'
       }).then((res) => { 
         return res.json(); 
       })
