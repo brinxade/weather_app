@@ -12,7 +12,7 @@ export const DataFormat = {
         visType: "line",
         query: (pos, time) => {
             let q = `${API_PATH}/${Utility.getTodaysDateFormatted()}T${time[0]}:00:00.000-05:00--${Utility.getTodaysDateFormatted()}T${time[1]}:00:00.000-05:00:PT30M/t_2m:C/${pos[0]},${pos[1]}/json?model=mix`;
-            console.log(API_PATH);
+            console.log(q);
             return q;
         }
     },
