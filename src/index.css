@@ -19,13 +19,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  font-size: clamp(14px, 1.6vw, 16px);
+  font-size: clamp(16px, 1.6vw, 16px);
 }
 
 h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
 h1 { font-size: clamp(20px, 3vw, 32px) !important; }
-h2 { font-size: clamp(18px, 2.7vw, 28px) !important; }
-h3 { font-size: clamp(16px, 2.3vw, 24px) !important; }
+h2 { font-size: clamp(20px, 2.7vw, 28px) !important; }
+h3 { font-size: clamp(18px, 2.3vw, 24px) !important; }
 
 * {
   box-sizing: border-box !important;

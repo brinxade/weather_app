@@ -56,7 +56,7 @@ function LineGraph(props) {
         method: 'GET',
         mode: 'cors',
         headers: {
-            "Authorization": "Basic ZnJlZWxhbmNlX2JhandhOmQ1NjVMa3d6VFQ="
+            "Authorization": process.env.REACT_APP_API_AUTH
         }
       }).then((res) => { 
         return res.json(); 
