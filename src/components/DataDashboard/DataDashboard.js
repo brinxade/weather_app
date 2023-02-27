@@ -10,9 +10,12 @@ function DataDashboard(props) {
     const metrics = useSelector((state) => state.weather.metrics);
     const pos = useSelector((state) => state.weather.pos);
     const notifs = useSelector(state => state.app.notifications);
+    const rtlEnabled = useSelector(state => state.weather.realtime);
 
     return (
         <>
+        {rtlEnabled && <p className="info notif"><span><i className="fa-solid fa-circle-exclamation"></i>Realtime updates are enabled.</span></p>}
+
         {(pos[0] == 0 || pos[1] == 0) && 
         <p className="warn notif"><span><i className="fa-solid fa-circle-exclamation"></i>Please select a valid location from the menu.</span></p>}
 
@@ -29,7 +32,7 @@ function DataDashboard(props) {
         })}
 
         {Object.keys(metrics).map((k, idx) => {
-            if(!metrics[k]) return;
+            if(!metrics[k]) return null;
             const df = DataFormat[k];
 
             return (

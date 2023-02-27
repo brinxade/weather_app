@@ -32,8 +32,11 @@ function LineGraph(props) {
     const [sLabels, setLabels] = useState([]);
     const [sData, setData] = useState([]);
 
+    const REALTIME_INTERVAL = 1; // In minutes
+    const rtlEnabled = useSelector(state => state.weather.realtime);
     const pos = useSelector(state => state.weather.pos);
     const t = useSelector(state => state.weather.timeRange);
+    const [rtlId, setRtlId] = useState(0);
 
     const dispatch = useDispatch();
 
@@ -51,7 +54,7 @@ function LineGraph(props) {
       },
     };
 
-    useEffect(()=>{
+    const fetchData = () => {
       fetch(DataFormat[props.dataKey].query(pos, t), {
         method: 'GET',
         mode: 'cors',
@@ -63,14 +66,30 @@ function LineGraph(props) {
       })
       .then((json) => {
         let data = convert.apiToApp(json);
-
         setData(data.values);
         setLabels(data.labels);
       }).catch((err) => {
         dispatch(pushNotification({id: "001", type: "error", content: "API request limit reached."}));
       });
-      
+    };
+
+    // Fetch data on component mount
+    useEffect(()=>{
+      fetchData();
     }, [pos, t, props.dataKey]);
+
+    // Realtime data fetch logic
+    useEffect(()=>{
+
+      if(rtlEnabled) {
+        let id = setInterval(fetchData, REALTIME_INTERVAL * 2000);
+        setRtlId(id);
+      } else {
+        clearInterval(rtlId);
+      }
+
+      return ()=>{ clearInterval(rtlId); };
+    }, [rtlEnabled]);
 
     return DataFormat[props.dataKey].visType=='line'?(
       <Line options={options} data={{

@@ -74,11 +74,12 @@ img { max-width: 100%; height: auto; }
   justify-content: center;
   border-radius: 100% 100%;
   background-color: rgb(255, 143, 143);
-  padding: 6px 9px;
+  padding: 4px 7px;
 }
 
 .notif .notif-close {
   color: black;
+  margin: -10px;
 }
 
 .notif.error button i:hover {

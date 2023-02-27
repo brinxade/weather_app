@@ -1,7 +1,7 @@
 import "./InputSelector.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-import { toggleMetric, setLocation, setLocationAndCoords, updateTime } from "../../reducers/weather/weatherReducer";
+import { toggleMetric, setLocation, setLocationAndCoords, updateTime, setRtlUpdate, setRealtime } from "../../reducers/weather/weatherReducer";
 import { store } from "../../app/store";
 import { pushNotification } from "../../reducers/app/appReducer";
 import Button from "../Button/Button";
@@ -19,6 +19,8 @@ function InputSelector() {
 	};
 	
 	const locationRef = useRef();
+  const rtlEnabled = useSelector(state => state.weather.realtime);
+  
 	const mTemp = useSelector(state => state.weather.temp);
 	const mPpt = useSelector(state => state.weather.ppt);
 	const mWs = useSelector(state => state.weather.ws);
@@ -71,7 +73,7 @@ function InputSelector() {
 
 			navigator.geolocation.getCurrentPosition((p) => {
         console.log("Using current location.");
-        let pos = [p.coords.latitude, p.coords.latitude];
+        let pos = [p.coords.latitude, p.coords.longitude];
         console.log(pos);
 
         fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${pos[0]},${pos[1]}&key=AIzaSyDqDdw4CN92p9gwujRO56GHA61OrQ-d6p8`)
@@ -101,7 +103,9 @@ function InputSelector() {
               Use Current Location
             </Button>
 			    </div>
+        </div>
 
+        <div className="group">
           <div className="group-item">
             <p className="label">Time Range</p>
             <div className="d-flex-50">
@@ -124,6 +128,13 @@ function InputSelector() {
             <li><label><input type="checkbox" checked={mTemp} onChange={(e)=>{dispatch(toggleMetric("temp"))}}/> Temperature</label></li>
             <li><label><input type="checkbox" checked={mPpt} onChange={(e)=>{dispatch(toggleMetric("ppt"))}}/> Precipitation</label></li>
             <li><label><input type="checkbox" checked={mWs} onChange={(e)=>{dispatch(toggleMetric("ws"))}}/> Windspeed</label></li>
+          </ul>
+        </div>
+
+        <div className="group metrics">
+          <p className="label">More settings</p>
+          <ul>
+            <li><label><input type="checkbox" checked={rtlEnabled} onChange={(e)=>{dispatch(setRealtime(e.target.checked))}}/> Enable realtime updates</label></li>
           </ul>
         </div>
       </div>

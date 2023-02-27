@@ -10,7 +10,7 @@ function Header(props) {
   return (
    <header id="app-header">
      <div className="inner">
-       <h1 className="logo">Weather App</h1>
+       <h1 className="logo"><i className="fa-solid fa-sun"></i> Weather App</h1>
        <button id="settings-btn" className={`${menuCollapse?"":"active"}`} onClick={()=>dispatch(menuToggle())}>
          <i className="fa-solid fa-bars"></i>
        </button>

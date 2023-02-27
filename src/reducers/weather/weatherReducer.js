@@ -6,6 +6,7 @@ export const weatherSlice = createSlice({
     location: "",
     pos: [0, 0],
     timeRange: ['00', '24'],
+    realtime: false,
     metrics: {
       temp: false,
       ppt: false,
@@ -27,9 +28,12 @@ export const weatherSlice = createSlice({
     },
     updateTime: (state, action) => {
       state.timeRange = [String(action.payload[0]).padStart(2, '0'), String(action.payload[1]).padStart(2, '0')];
+    },
+    setRealtime: (state, action) => {
+      state.realtime = action.payload;
     }
   },
 })
 
-export const { toggleMetric, setLocation, setLocationAndCoords, updateTime } = weatherSlice.actions;
+export const { toggleMetric, setLocation, setLocationAndCoords, updateTime, setRealtime } = weatherSlice.actions;
 export default weatherSlice.reducer;

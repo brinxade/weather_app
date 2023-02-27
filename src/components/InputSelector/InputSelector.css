@@ -30,6 +30,10 @@
 	color: var(--secondary);
 }
 
+.input-selector .d-flex > * {
+	margin-bottom: 0 !important;
+}
+
 .input-selector .subgroup-item:not(:last-of-type) {
 	margin-bottom: 10px;
 }
