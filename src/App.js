@@ -38,7 +38,7 @@ function App() {
   }
 
   return (
-    <div id="app">
+    <div id="app" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
       <div className="app-inner">
         <Header/>
 
