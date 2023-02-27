@@ -54,6 +54,7 @@ function LineGraph(props) {
     };
 
     const fetchData = () => {
+      console.log(process.env.REACT_APP_API_AUTH)
       fetch(DataFormat[props.dataKey].query(pos, t), {
         method: 'GET',
         mode: 'cors',
