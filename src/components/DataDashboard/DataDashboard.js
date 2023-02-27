@@ -26,8 +26,7 @@ function DataDashboard(props) {
             </p>
             <p className="info notif">
                 <span><i className="fa-solid fa-circle-exclamation"></i>
-                Please select atleast one weather metric from the menu to 
-                <strong className="link" onClick={() => { dispatch(setMenuOpen(true)); }}> get started!</strong>
+                Please select atleast one weather metric from the menu to <strong className="link" onClick={() => { dispatch(setMenuOpen(true)); }}>get started!</strong>
                 </span>
             </p>
         </div>)}
